@@ -1,0 +1,28 @@
+name: Login and Get Profile
+descreiption: Some useful description
+baseUrl: { { ENV.BASE_URL } }
+steps:
+  - id: loginstep
+    name: Login
+    method: POST
+    url: "/auth/login"
+    headers:
+      Content-Type: application/json
+    body:
+      username: michaelw
+      password: michaelwpass
+    asserts:
+      - path: response.status
+        operator: =
+        value: 200
+      - path: response.data.isSuccess
+        operator: =
+        value: true
+
+  - id: profile
+    name: Get Profile Details
+    method: GET
+    url: /auth/me
+    headers:
+      Authorization: Bearer {{loginstep.response.data.accessToken}}
+    asserts:

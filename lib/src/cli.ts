@@ -1,3 +1,5 @@
 #!/usr/bin/env node
+import click from "./core/runner";
 
-console.log("Hello cli 🤩");
+//Hit The CLI
+click();

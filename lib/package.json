@@ -1,22 +1,29 @@
 {
-  "name": "test-tube",
-  "version": "1.0.0",
+  "name": "clickapi",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "testtube": "./dist/cli.js"
+    "click": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsc -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "files": [
+    "./dist"
+  ],
+  "author": "Ritwik Das",
   "license": "ISC",
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@types/node": "^22.15.30"
+    "@types/node": "^22.15.30",
+    "axios": "^1.9.0",
+    "cfonts": "^3.3.0",
+    "js-yaml": "^4.1.0"
   }
 }
