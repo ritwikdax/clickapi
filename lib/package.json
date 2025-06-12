@@ -1,6 +1,6 @@
 {
   "name": "clickapi",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -8,7 +8,9 @@
     "click": "./dist/cli.js"
   },
   "scripts": {
-    "build": "tsc -b",
+    "publish": "",
+    "build": "tsc -b && chmod +x ./dist/cli.js",
+    "dev": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
@@ -24,6 +26,8 @@
     "@types/node": "^22.15.30",
     "axios": "^1.9.0",
     "cfonts": "^3.3.0",
+    "chalk": "4.1.2",
+    "cosmiconfig": "^9.0.0",
     "js-yaml": "^4.1.0"
   }
 }

@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "cleanup": "rm -rf node_modules example/node_modules lib/node_modules package-lock.json && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "private": true,
   "workspaces": [
-    "./lib",
-    "./example/"
+    "lib",
+    "example"
   ],
   "devDependencies": {
     "@types/node": "^22.15.30",
