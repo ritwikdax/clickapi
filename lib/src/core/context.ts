@@ -1,13 +1,24 @@
+//Singleton class
 export class Context {
-  private globalStore: Record<string, any> = {};
+  private static instance: Context;
   private stepStore: Record<string, Record<string, any>> = {};
   private currentStep: string = "";
 
-  constructor() {
-    this.stepStore["ENV"] = {
-      TOKEN: "fake-token",
-      BASE_URL: "https://dummyjson.com",
-    };
+  // constructor() {
+  //   // this.stepStore["ENV"] = {
+  //   //   TOKEN: "fake-token",
+  //   //   BASE_URL: "h ttps://dummyjson.com",
+  //   // };
+  // }
+
+  private constructor() {}
+
+  // Static method to get the single instance
+  public static getInstance(): Context {
+    if (!Context.instance) {
+      Context.instance = new Context();
+    }
+    return Context.instance;
   }
 
   setStep(stepId: string) {
@@ -19,6 +30,12 @@ export class Context {
 
   set(key: string, value: unknown) {
     this.stepStore[this.currentStep][key] = value;
+  }
+
+  setConfig(key: string, value: any) {
+    const obj: Record<string, any> = {};
+    obj[key] = value;
+    this.stepStore["config"] = obj;
   }
 
   get(varPath: string): any {

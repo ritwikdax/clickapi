@@ -3,8 +3,9 @@ import { executeStep, StepResult } from "./executor";
 import { TestFile } from "../interfaces/interface";
 
 export async function runTest(testDef: TestFile) {
-  const context = new Context();
+  const context = Context.getInstance();
   const results: StepResult[] = [];
+  const x = 0;
 
   console.log(`🧪 Running Test: ${testDef.name}`);
 

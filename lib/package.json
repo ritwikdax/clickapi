@@ -2,24 +2,32 @@
   "name": "clickapi",
   "version": "0.0.0",
   "description": "",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "commonjs",
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
   "bin": {
-    "click": "./dist/cli.js"
+    "click": "dist/cli.js"
   },
   "scripts": {
+    "types": "tsc --emitDeclarationOnly",
     "publish": "",
-    "build": "tsc -b && chmod +x ./dist/cli.js",
+    "build": "rm -rf lib/dist tsconfig.tsbuildinfo && node ./script/build.js && npm run types",
+    "build:tsup": "tsup",
+    "build1": "esbuild src/cli.ts --bundle --platform=node --format=cjs --outfile=dist/cli.js",
     "dev": "tsc --watch",
+    "watch": "node ./script/watch.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "author": "Ritwik Das",
   "license": "ISC",
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
+    "chokidar": "^4.0.3",
+    "esbuild": "^0.25.5",
+    "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
@@ -27,7 +35,11 @@
     "axios": "^1.9.0",
     "cfonts": "^3.3.0",
     "chalk": "4.1.2",
+    "commander": "^14.0.0",
     "cosmiconfig": "^9.0.0",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "ora": "^8.2.0",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.64"
   }
 }

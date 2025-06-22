@@ -45,7 +45,7 @@ export async function executeStep(
     //       throw new Error(`Assertion failed: ${assertion.path} does not exist`);
     //     }
     //   }
-    // }
+    //  }
 
     console.log(`✅ Step passed: ${step.name}`);
     return {

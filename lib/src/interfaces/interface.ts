@@ -32,3 +32,10 @@ export interface TestFile {
   baseUrl: string;
   steps: Step[];
 }
+
+export interface Task {
+  name: string;
+  successMessage: string;
+  failureMessage: string;
+  fn: () => Promise<void> | void;
+}

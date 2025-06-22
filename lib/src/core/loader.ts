@@ -2,6 +2,9 @@ import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
 import { cosmiconfig } from "cosmiconfig";
+import { Context } from "./context";
+import { SchemaValidator } from "../validators/validator";
+import { configSchema } from "../validators/schema/config.schema";
 
 export function loadTestFile(filePath: string): any {
   const content = fs.readFileSync(filePath, "utf-8");
@@ -43,36 +46,21 @@ export function listTestFiles(folderPath: string) {
   }
 }
 
-export async function loadConfig() {
-  console.log("🔍 Current working directory:", process.cwd());
-  const moduleName = "click"; // config file name: yourcli.config.js / .yourclirc / yourcli.yaml
+export class Loader {
+  static async loadConfig() {
+    const context = Context.getInstance();
 
-  const explorer = cosmiconfig(moduleName, {
-    searchPlaces: [
-      "package.json", // supports a "yourcli" key
-      `.${moduleName}rc`,
-      `.${moduleName}rc.json`,
-      `.${moduleName}rc.yaml`,
-      `.${moduleName}rc.yml`,
-      `.${moduleName}rc.js`,
-      `${moduleName}.config.js`,
-      `${moduleName}.config.json`,
-      `${moduleName}.config.yaml`,
-    ],
-  });
-
-  try {
+    const moduleName = "click"; // Change this to your CLI/tool name
+    const explorer = cosmiconfig(moduleName, {
+      searchPlaces: ["click.config.yaml"],
+    });
     const result = await explorer.search();
+    console.log(result?.config);
 
-    if (!result) {
-      console.error("❌ Config not found");
-      process.exit(1);
-    }
-
-    console.log("✅ Config loaded from:", result.filepath);
-    console.log(result);
-  } catch (err) {
-    console.error("❌ Failed to load config", err);
-    process.exit(1);
+    const schema = new SchemaValidator(configSchema);
+    const refinedConfig = schema.validate(result?.config);
+    console.log(context);
+    context.setConfig("baseConfig", refinedConfig);
+    console.log(context.get("config.baseConfig"));
   }
 }
